@@ -1,0 +1,69 @@
+class Main {
+    function void main() {
+        var int playersCount;
+        var TicTacToe game;
+        var int winner;
+
+        do Output.printString("Welcome To TicTacToe! You can choose to play against computer or against friend. Press 1 if you want to play alone, press 2 if you want to play against your friend");
+        do Output.println();
+
+        while(true){
+            let playersCount = Keyboard.readInt("Select Mode: ");
+            if(playersCount = 1){
+                do Screen.clearScreen();
+
+                let game = TicTacToe.new(1);
+
+                let winner = game.play();
+
+                do game.dispose();
+
+                if(winner = 0){
+                    do Output.printString("You Won");
+                    do Output.println();
+                }
+                if(winner = 2){
+                    do Output.printString("Draw");
+                    do Output.println();
+                }
+                if(winner = 1){
+                    do Output.printString("You Lose");
+                    do Output.println();
+                }
+                
+
+                return;
+            }
+            
+            if(playersCount = 2){
+                do Screen.clearScreen();
+
+                let game = TicTacToe.new(2);
+
+                let winner = game.play();
+
+                do game.dispose();
+
+                if(winner = 0){
+                    do Output.printString("Player 1 Won");
+                    do Output.println();
+                }
+                if(winner = 2){
+                    do Output.printString("Draw");
+                    do Output.println();
+                }
+                if(winner = 1){
+                    do Output.printString("Player 2 Won");
+                    do Output.println();
+                }
+
+                return;
+            }
+
+            do Output.printString("Invalid Input");
+            do Output.println();   
+        }
+
+        return;
+    }
+}

@@ -1,0 +1,382 @@
+class TicTacToe{
+    field int playersCount;
+    field Array board;
+    field int randomInt;
+    field int curCell;
+
+    constructor TicTacToe new(int players){
+        let playersCount = players;
+        let board = Array.new(9);
+        let board[0] = 0;
+        let board[1] = 0;
+        let board[2] = 0;
+        let board[3] = 0;
+        let board[4] = 0;
+        let board[5] = 0;
+        let board[6] = 0;
+        let board[7] = 0;
+        let board[8] = 0;
+        let randomInt = 1039;
+        do draw();
+        return this;
+    }
+
+    method void dispose(){
+        do board.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawLine(290, 22, 290, 232);
+        do Screen.drawLine(360, 22, 360, 232);
+        do Screen.drawLine(220, 92, 430, 92);
+        do Screen.drawLine(220, 162, 430, 162);
+        return;
+    }
+
+    method void drawX(int cell){
+        if(cell = 1){
+            do Screen.drawLine(230, 32, 280, 82);
+            do Screen.drawLine(230, 82, 280, 32);
+            return;
+        }
+        if(cell = 2){
+            do Screen.drawLine(300, 32, 350, 82);
+            do Screen.drawLine(300, 82, 350, 32);
+            return;
+        }
+        if(cell = 3){
+            do Screen.drawLine(370, 32, 420, 82);
+            do Screen.drawLine(370, 82, 420, 32);
+            return;
+        }
+        if(cell = 4){
+            do Screen.drawLine(230, 102, 280, 152);
+            do Screen.drawLine(230, 152, 280, 102);
+            return;
+        }
+        if(cell = 5){
+            do Screen.drawLine(300, 102, 350, 152);
+            do Screen.drawLine(300, 152, 350, 102);
+            return;
+        }
+        if(cell = 6){
+            do Screen.drawLine(370, 102, 420, 152);
+            do Screen.drawLine(370, 152, 420, 102);
+            return;
+        }
+        if(cell = 7){
+            do Screen.drawLine(230, 172, 280, 222);
+            do Screen.drawLine(230, 222, 280, 172);
+            return;
+        }
+        if(cell = 8){
+            do Screen.drawLine(300, 172, 350, 222);
+            do Screen.drawLine(300, 222, 350, 172);
+            return;
+        }
+        if(cell = 9){
+            do Screen.drawLine(370, 172, 420, 222);
+            do Screen.drawLine(370, 222, 420, 172);
+            return;
+        }
+
+        return;
+    }
+
+    method void drawO(int cell){
+        if(cell = 1){
+            do Screen.drawCircle(255, 57, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(255, 57, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 2){
+            do Screen.drawCircle(325, 57, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(325, 57, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 3){
+            do Screen.drawCircle(395, 57, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(395, 57, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 4){
+            do Screen.drawCircle(255, 127, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(255, 127, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 5){
+            do Screen.drawCircle(325, 127, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(325, 127, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 6){
+            do Screen.drawCircle(395, 127, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(395, 127, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 7){
+            do Screen.drawCircle(255, 197, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(255, 197, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 8){
+            do Screen.drawCircle(325, 197, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(325, 197, 29);
+            do Screen.setColor(true);
+            return;
+        }
+        if(cell = 9){
+            do Screen.drawCircle(395, 197, 30);
+            do Screen.setColor(false);
+            do Screen.drawCircle(395, 197, 29);
+            do Screen.setColor(true);
+            return;
+        }
+
+        return;
+    }
+
+    method int gameOver(){
+        if( ~(board[0] = 0) & (board[0] = board[1]) & (board[1] = board[2]) ){
+            return 1;
+        }
+        if( ~(board[3] = 0) & (board[3] = board[4]) & (board[4] = board[5]) ){
+            return 1;
+        }
+        if( ~(board[6] = 0) & (board[6] = board[7]) & (board[7] = board[8]) ){
+            return 1;
+        }
+
+        if( ~(board[0] = 0) & (board[0] = board[3]) & (board[3] = board[6]) ){
+            return 1;
+        }
+        if( ~(board[1] = 0) & (board[1] = board[4]) & (board[4] = board[7]) ){
+            return 1;
+        }
+        if( ~(board[2] = 0) & (board[2] = board[5]) & (board[5] = board[8]) ){
+            return 1;
+        }
+
+        if( ~(board[0] = 0) & (board[0] = board[4]) & (board[4] = board[8]) ){
+            return 1;
+        }
+        if( ~(board[2] = 0) & (board[2] = board[4]) & (board[4] = board[6]) ){
+            return 1;
+        }
+
+        if( ~(board[0] = 0) & ~(board[1] = 0) & ~(board[2] = 0) & ~(board[3] = 0) & ~(board[4] = 0) & ~(board[5] = 0) & ~(board[6] = 0) & ~(board[7] = 0) & ~(board[8] = 0) ){
+            return 2;
+        }
+
+        return 0;
+    }
+
+    method boolean checkForLose(Array neccesaryMoves){
+        var int curCell;
+        let curCell = 0;
+
+        while(curCell < 9){
+            if(board[curCell] = 0){
+                let board[curCell] = 1;
+
+                if(gameOver() = 1){
+                    let board[curCell] = 0;
+                    let neccesaryMoves[curCell] = 1;
+                    return true;
+                }
+
+                let board[curCell] = 0;
+            }
+
+            let curCell = curCell + 1;
+        }
+
+
+        return false;
+    }
+
+    method int checkMove(int cell, Array neccesaryMoves){
+        if(board[cell] = 0){
+            let board[cell] = 2;
+
+            if( ~(gameOver() = 0) ){
+                let board[cell] = 0;
+                return 2;
+            }
+
+            if( checkForLose(neccesaryMoves) ){
+                let board[cell] = 0;
+                return 0;
+            }
+
+            let board[cell] = 0;
+            return 1;
+        }
+
+        return -1;
+    }
+
+    method int mod(int a, int b){
+        if(a < 0){
+            let a = -a;
+        }
+
+        while( (a+1)>b ){
+            let a = a - b;
+        }
+
+        return a;
+    }
+
+    method int randomNumber() {
+        let randomInt = 7919 + (curCell*randomInt);
+        return randomInt;
+    }
+
+    method int randomIntBetween(int x, int y) {
+		var int d;
+		let d = y - x;
+
+		return mod(randomNumber(), d) + x;
+	}
+
+    method boolean randomBool(){
+        var int r;
+
+        let r = randomIntBetween(0, 100);
+
+        if(r > 50){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    method void makeComputerMove(){
+        var int bestMove;
+        var int maxPoint;
+        var int curMove;
+        var Array possibleMoves;
+        var Array neccesaryMoves;
+
+        let bestMove = -1;
+        let maxPoint = -1;
+        let curMove = 0;
+
+        let neccesaryMoves = Array.new(9);
+        let neccesaryMoves[0] = 0;
+        let neccesaryMoves[1] = 0;
+        let neccesaryMoves[2] = 0;
+        let neccesaryMoves[3] = 0;
+        let neccesaryMoves[4] = 0;
+        let neccesaryMoves[5] = 0;
+        let neccesaryMoves[6] = 0;
+        let neccesaryMoves[7] = 0;
+        let neccesaryMoves[8] = 0;
+
+        let possibleMoves = Array.new(9);
+        let possibleMoves[0] = checkMove(0, neccesaryMoves);
+        let possibleMoves[1] = checkMove(1, neccesaryMoves);
+        let possibleMoves[2] = checkMove(2, neccesaryMoves);
+        let possibleMoves[3] = checkMove(3, neccesaryMoves);
+        let possibleMoves[4] = checkMove(4, neccesaryMoves);
+        let possibleMoves[5] = checkMove(5, neccesaryMoves);
+        let possibleMoves[6] = checkMove(6, neccesaryMoves);
+        let possibleMoves[7] = checkMove(7, neccesaryMoves);
+        let possibleMoves[8] = checkMove(8, neccesaryMoves);
+
+        while(curMove < 9){
+            if(possibleMoves[curMove] = maxPoint & randomBool()){
+                let maxPoint = possibleMoves[curMove];
+                let bestMove = curMove;
+            }
+
+            if(possibleMoves[curMove] > maxPoint){
+                let maxPoint = possibleMoves[curMove];
+                let bestMove = curMove;
+            }
+
+            if(neccesaryMoves[curMove] = 1){
+                let maxPoint = 3;
+                let bestMove = curMove;
+            }
+            
+            let curMove = curMove + 1;
+        }
+
+        if( ~(bestMove = -1) ){
+            do drawO(bestMove + 1);
+            let board[bestMove] = 2;
+        } 
+        
+        return;
+    }
+
+    method int play(){
+        var int turn;
+        var int endGame;
+
+        let turn = 0;
+        let curCell = 1;
+        while(true){
+            if( (playersCount = 2) | (turn = 0) ){
+                let curCell = Keyboard.readInt("Enter Cell(1-9): ");
+            }
+
+            if( (curCell > 0) & (curCell < 10) & ( (board[curCell - 1] = 0) | ((playersCount = 1) & turn = 1) ) ){
+                if( turn = 0 ){
+                    do drawX(curCell);
+                    let board[curCell - 1] = 1;
+                    let turn = 1;
+                }else{
+                    if(playersCount = 2){
+                        do drawO(curCell);
+                        let board[curCell - 1] = 2;
+                    }else{
+                        do Output.printString("Thinking...");
+                        do Output.println();
+                        do makeComputerMove();
+                    }
+                    let turn = 0;
+                }
+            }else{
+                do Output.printString("Invalid input");
+                do Output.println();
+            }
+
+            let endGame = gameOver();
+
+            if(endGame = 1){
+                if(turn = 0){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+
+            if(endGame = 2){
+                return 2;
+            }
+       }
+
+       return 1;
+   }
+}
